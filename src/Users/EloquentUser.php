@@ -460,4 +460,10 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
 
         return new static::$permissionsClass($userPermissions, $rolePermissions);
     }
+    
+    public function getProfilePictureAttribute(){
+        $photo = Images::where('id',Sentinel::getUser()->profile_picture)->first();
+        $path = "/galleries/$photo->user_id/$photo->album_id/thumbnail/$photo->id.jpg";
+        return $path;
+    }
 }
